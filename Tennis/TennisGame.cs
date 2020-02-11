@@ -13,7 +13,7 @@ namespace Tennis
 
         public void AwardPoint()
         {
-            throw new NotImplementedException();
+            Score = "Fifteen-Love";
         }
     }
 }
