@@ -51,6 +51,14 @@ namespace Tennis
             Assert.Equal("Game 'Player One'", tennisGame.Score);
         }
 
+        [Fact]
+        public void ErrorsWhenYouTryToAward5Points()
+        {
+            var tennisGame = new TennisGame();
+            AwardPoints(5, tennisGame, true);
+            Assert.Equal("Error-Love", tennisGame.Score);
+        }
+
         [Theory]
         [InlineData("Love All", 0, 0)]
         [InlineData("Fifteen All", 1, 1)]
@@ -67,7 +75,6 @@ namespace Tennis
             var tennisGame = new TennisGame();
             AwardPoints(playerOneScore, tennisGame, true);
             AwardPoints(playerTwoScore, tennisGame, false);
-
             Assert.Equal(score, tennisGame.Score);
         }
 
@@ -83,7 +90,6 @@ namespace Tennis
             var tennisGame = new TennisGame("Borg", "Agasi");
             AwardPoints(playerOneScore, tennisGame, true);
             AwardPoints(playerTwoScore, tennisGame, false);
-
             Assert.Equal(score, tennisGame.Score);
         }
     }
