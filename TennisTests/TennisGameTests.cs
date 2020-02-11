@@ -4,8 +4,16 @@ namespace Tennis
 {
     public class TennisGameTests
     {
+        private static void AwardPoints(int playerScore, TennisGame tennisGame, bool toPlayerOne)
+        {
+            for (int i = 0; i < playerScore; i++)
+            {
+                tennisGame.AwardPoint(toPlayerOne);
+            }
+        }
+
         [Fact]
-        public void NewGameHasScoreLoveLove()
+        public void NewGameHasScoreLoveAll()
         {
             var tennisGame = new TennisGame();
             Assert.Equal("Love All", tennisGame.Score);
@@ -15,7 +23,7 @@ namespace Tennis
         public void AwardPointOnLoveMakesItEqualFifteen()
         {
             var tennisGame = new TennisGame();
-            tennisGame.AwardPoint(true);
+            AwardPoints(1, tennisGame, true);
             Assert.Equal("Fifteen-Love", tennisGame.Score);
         }
 
@@ -23,8 +31,7 @@ namespace Tennis
         public void AwardPointOnFifteenMakesItEqualThirty()
         {
             var tennisGame = new TennisGame();
-            tennisGame.AwardPoint(true);
-            tennisGame.AwardPoint(true);
+            AwardPoints(2, tennisGame, true);
             Assert.Equal("Thirty-Love", tennisGame.Score);
         }
 
@@ -32,9 +39,7 @@ namespace Tennis
         public void AwardPointOnThirtyMakesItEqualForty()
         {
             var tennisGame = new TennisGame();
-            tennisGame.AwardPoint(true);
-            tennisGame.AwardPoint(true);
-            tennisGame.AwardPoint(true);
+            AwardPoints(3, tennisGame, true);
             Assert.Equal("Forty-Love", tennisGame.Score);
         }
 
@@ -42,10 +47,7 @@ namespace Tennis
         public void AwardPointOnFortyMakesItEqualGame()
         {
             var tennisGame = new TennisGame();
-            tennisGame.AwardPoint(true);
-            tennisGame.AwardPoint(true);
-            tennisGame.AwardPoint(true);
-            tennisGame.AwardPoint(true);
+            AwardPoints(4, tennisGame, true);
             Assert.Equal("Game 'Player One'", tennisGame.Score);
         }
 
@@ -63,15 +65,8 @@ namespace Tennis
         public void GetTennisScore(string score, int playerOneScore, int playerTwoScore)
         {
             var tennisGame = new TennisGame();
-            for (int i = 0; i < playerOneScore; i++)
-            {
-                tennisGame.AwardPoint(true);
-            }
-
-            for (int i = 0; i < playerTwoScore; i++)
-            {
-                tennisGame.AwardPoint(false);
-            }
+            AwardPoints(playerOneScore, tennisGame, true);
+            AwardPoints(playerTwoScore, tennisGame, false);
 
             Assert.Equal(score, tennisGame.Score);
         }
@@ -86,15 +81,8 @@ namespace Tennis
         public void GetTennisScoreForNamedPlayers(string score, int playerOneScore, int playerTwoScore)
         {
             var tennisGame = new TennisGame("Borg", "Agasi");
-            for (int i = 0; i < playerOneScore; i++)
-            {
-                tennisGame.AwardPoint(true);
-            }
-
-            for (int i = 0; i < playerTwoScore; i++)
-            {
-                tennisGame.AwardPoint(false);
-            }
+            AwardPoints(playerOneScore, tennisGame, true);
+            AwardPoints(playerTwoScore, tennisGame, false);
 
             Assert.Equal(score, tennisGame.Score);
         }
