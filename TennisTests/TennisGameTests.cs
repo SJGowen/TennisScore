@@ -8,7 +8,7 @@ namespace Tennis
         public void NewGameHasScoreLoveLove()
         {
             var tennisGame = new TennisGame();
-            Assert.Equal("Love-Love", tennisGame.Score());
+            Assert.Equal("Love-Love", tennisGame.Score);
         }
     }
 }

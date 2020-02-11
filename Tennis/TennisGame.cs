@@ -2,13 +2,11 @@
 {
     public class TennisGame
     {
+        public string Score { get; set; }
+
         public TennisGame()
         {
-        }
-
-        public string Score()
-        {
-            return string.Empty;
+            Score = "Love-Love";
         }
     }
 }
