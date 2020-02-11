@@ -5,7 +5,7 @@ namespace Tennis
     public class TennisGame
     {
         private int PlayerOneScore { get; set; }
-         
+
         private int PlayerTwoScore { get; set; }
 
         public string Score
@@ -26,9 +26,16 @@ namespace Tennis
         {
         }
 
-        public void AwardPoint()
+        public void AwardPoint(bool playerOneScores)
         {
-            PlayerOneScore++;
+            if (playerOneScores)
+            {
+                PlayerOneScore++;
+            }
+            else
+            {
+                PlayerTwoScore++;
+            }
         }
     }
 }

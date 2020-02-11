@@ -15,7 +15,7 @@ namespace Tennis
         public void AwardPointOnLoveMakesItEqualFifteen()
         {
             var tennisGame = new TennisGame();
-            tennisGame.AwardPoint();
+            tennisGame.AwardPoint(true);
             Assert.Equal("Fifteen-Love", tennisGame.Score);
         }
 
@@ -23,8 +23,8 @@ namespace Tennis
         public void AwardPointOnFifteenMakesItEqualThirty()
         {
             var tennisGame = new TennisGame();
-            tennisGame.AwardPoint();
-            tennisGame.AwardPoint();
+            tennisGame.AwardPoint(true);
+            tennisGame.AwardPoint(true);
             Assert.Equal("Thirty-Love", tennisGame.Score);
         }
 
@@ -32,9 +32,9 @@ namespace Tennis
         public void AwardPointOnThirtyMakesItEqualForty()
         {
             var tennisGame = new TennisGame();
-            tennisGame.AwardPoint();
-            tennisGame.AwardPoint();
-            tennisGame.AwardPoint();
+            tennisGame.AwardPoint(true);
+            tennisGame.AwardPoint(true);
+            tennisGame.AwardPoint(true);
             Assert.Equal("Forty-Love", tennisGame.Score);
         }
     }
