@@ -4,9 +4,9 @@ namespace Tennis
 {
     public class TennisGame
     {
-        public int PlayerOneScore { get; set; }
+        private int PlayerOneScore { get; set; }
          
-        public int PlayerTwoScore { get; set; }
+        private int PlayerTwoScore { get; set; }
 
         public string Score
         {

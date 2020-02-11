@@ -18,5 +18,14 @@ namespace Tennis
             tennisGame.AwardPoint();
             Assert.Equal("Fifteen-Love", tennisGame.Score);
         }
+
+        [Fact]
+        public void AwardPointOnFifteenMakesItEqualThirty()
+        {
+            var tennisGame = new TennisGame();
+            tennisGame.AwardPoint();
+            tennisGame.AwardPoint();
+            Assert.Equal("Thirty-Love", tennisGame.Score);
+        }
     }
 }
