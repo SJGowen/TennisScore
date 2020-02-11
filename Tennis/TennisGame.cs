@@ -1,4 +1,6 @@
-﻿namespace Tennis
+﻿using System;
+
+namespace Tennis
 {
     public class TennisGame
     {
@@ -7,6 +9,11 @@
         public TennisGame()
         {
             Score = "Love-Love";
+        }
+
+        public void AwardPoint()
+        {
+            throw new NotImplementedException();
         }
     }
 }
