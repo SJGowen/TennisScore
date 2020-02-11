@@ -11,7 +11,7 @@ namespace Tennis
             Assert.Equal("Love-Love", tennisGame.Score);
         }
 
-                [Fact]
+        [Fact]
         public void AwardPointOnLoveMakesItEqualFifteen()
         {
             var tennisGame = new TennisGame();
