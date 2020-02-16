@@ -74,6 +74,14 @@ namespace Tennis
         [InlineData("Fifteen All", 1, 1)]
         [InlineData("Thirty All", 2, 2)]
         [InlineData("Deuce", 3, 3)]
+        public void GetTennisScoreForDrawingGames(string score, int playerOneScore, int playerTwoScore)
+        {
+            var tennisGame = new TennisGame();
+            AwardPoints(playerOneScore, playerTwoScore, tennisGame);
+            Assert.Equal(score, tennisGame.Score);
+        }
+
+        [Theory]
         [InlineData("Game 'Player One'", 4, 2)]
         [InlineData("Advantage 'Player One'", 4, 3)]
         [InlineData("Game 'Player One'", 5, 3)]
