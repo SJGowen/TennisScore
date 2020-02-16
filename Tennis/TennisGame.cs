@@ -69,13 +69,20 @@ namespace Tennis
 
         public void AwardPoint(bool playerOneScores)
         {
-            if (playerOneScores)
+            if (!Score.StartsWith("Game"))
             {
-                PlayerOneScore++;
+                if (playerOneScores)
+                {
+                    PlayerOneScore++;
+                }
+                else
+                {
+                    PlayerTwoScore++;
+                }
             }
             else
             {
-                PlayerTwoScore++;
+                throw new InvalidOperationException("You can't award points to a game that is over!");
             }
         }
     }

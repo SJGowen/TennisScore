@@ -1,14 +1,24 @@
+using System;
 using Xunit;
 
 namespace Tennis
 {
     public class TennisGameTests
     {
-        private static void AwardPoints(int playerScore, TennisGame tennisGame, bool toPlayerOne)
+        private static void AwardPoints(int playerOneScore, int playerTwoScore, TennisGame tennisGame)
         {
-            for (int i = 0; i < playerScore; i++)
+            while (playerOneScore + playerTwoScore > 0)
             {
-                tennisGame.AwardPoint(toPlayerOne);
+                if (playerOneScore > 0)
+                {
+                    tennisGame.AwardPoint(true);
+                    playerOneScore--;
+                }
+                if (playerTwoScore > 0)
+                {
+                    tennisGame.AwardPoint(false);
+                    playerTwoScore--;
+                }
             }
         }
 
@@ -23,7 +33,7 @@ namespace Tennis
         public void AwardPointOnLoveMakesItEqualFifteen()
         {
             var tennisGame = new TennisGame();
-            AwardPoints(1, tennisGame, true);
+            AwardPoints(1, 0, tennisGame);
             Assert.Equal("Fifteen-Love", tennisGame.Score);
         }
 
@@ -31,7 +41,7 @@ namespace Tennis
         public void AwardPointOnFifteenMakesItEqualThirty()
         {
             var tennisGame = new TennisGame();
-            AwardPoints(2, tennisGame, true);
+            AwardPoints(2, 0, tennisGame);
             Assert.Equal("Thirty-Love", tennisGame.Score);
         }
 
@@ -39,7 +49,7 @@ namespace Tennis
         public void AwardPointOnThirtyMakesItEqualForty()
         {
             var tennisGame = new TennisGame();
-            AwardPoints(3, tennisGame, true);
+            AwardPoints(3, 0, tennisGame);
             Assert.Equal("Forty-Love", tennisGame.Score);
         }
 
@@ -47,7 +57,7 @@ namespace Tennis
         public void AwardPointOnFortyMakesItEqualGame()
         {
             var tennisGame = new TennisGame();
-            AwardPoints(4, tennisGame, true);
+            AwardPoints(4, 0, tennisGame);
             Assert.Equal("Game 'Player One'", tennisGame.Score);
         }
 
@@ -55,8 +65,8 @@ namespace Tennis
         public void ErrorsWhenYouTryToAward5Points()
         {
             var tennisGame = new TennisGame();
-            AwardPoints(5, tennisGame, true);
-            Assert.Equal("Error-Love", tennisGame.Score);
+            Exception ex = Assert.Throws<InvalidOperationException>(() => AwardPoints(5, 0, tennisGame));
+            Assert.Equal("Game 'Player One'", tennisGame.Score);
         }
 
         [Theory]
@@ -73,8 +83,7 @@ namespace Tennis
         public void GetTennisScore(string score, int playerOneScore, int playerTwoScore)
         {
             var tennisGame = new TennisGame();
-            AwardPoints(playerOneScore, tennisGame, true);
-            AwardPoints(playerTwoScore, tennisGame, false);
+            AwardPoints(playerOneScore, playerTwoScore, tennisGame);
             Assert.Equal(score, tennisGame.Score);
         }
 
@@ -83,13 +92,12 @@ namespace Tennis
         [InlineData("Game 'Borg'", 4, 1)]
         [InlineData("Advantage 'Borg'", 4, 3)]
         [InlineData("Game 'Borg'", 5, 3)]
+        [InlineData("Advantage 'Agasi'", 5, 6)]
         [InlineData("Game 'Agasi'", 5, 7)]
-        [InlineData("Advantage 'Agasi'", 6, 7)]
         public void GetTennisScoreForNamedPlayers(string score, int playerOneScore, int playerTwoScore)
         {
             var tennisGame = new TennisGame("Borg", "Agasi");
-            AwardPoints(playerOneScore, tennisGame, true);
-            AwardPoints(playerTwoScore, tennisGame, false);
+            AwardPoints(playerOneScore, playerTwoScore, tennisGame);
             Assert.Equal(score, tennisGame.Score);
         }
     }
